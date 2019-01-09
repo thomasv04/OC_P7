@@ -333,7 +333,7 @@ class Map {
 
 
 
-    creationMarker(){
+    creationMarker() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 let myLatlng_perso = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -364,7 +364,7 @@ class Map {
 
 
     callback(results, status) {
-        
+
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             //this.results = results;
             map.results = []
@@ -373,7 +373,7 @@ class Map {
                 //map.results[i] = results[i];
                 //console.log(map.results)
             }
-            
+
         } else(alert("Pas de restaurant aux alentours"))
         map.gestionClick();
     }
@@ -406,7 +406,7 @@ class Map {
     }
 
 
-    decouvreResto(){
+    decouvreResto() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
 
@@ -426,7 +426,7 @@ class Map {
                 let service = new google.maps.places.PlacesService(map.map);
                 service.nearbySearch(request, map.callback);
                 map.map.setCenter(pos);
-            },function () {
+            }, function () {
                 this.handleLocationError(true, infoWindow, map.map.getCenter());
             });
         } else {
@@ -448,7 +448,7 @@ class Map {
 
     }
 
-    CreationFiltre(){
+    CreationFiltre() {
         $('body').append('<div class="filtre"><h2></h2><div class="image_filtre" id="1"><img src="./img/star.svg" id="1" class="star"><h3 class="dnone">1</h3></div></div>')
         $('.filtre').append('<div class="image_filtre" id="2"><img src="./img/star.svg" id="2" class="star" ><h3 class="dnone">2</h3></div>');
         $('.filtre').append('<div class="image_filtre" id="3"><img src="./img/star.svg" id="3" class="star" ><h3 class="dnone">3</h3></div>');
@@ -463,7 +463,7 @@ class Map {
     }
 
     RemplirHUD(place) {
-        console.log(place)
+        //console.log(place)
         var nb_restaurant = $('.restaurant').length + 1;
         $('.HUD').append('<div id="' + place.place_id + '" class="restaurant restaurant' + nb_restaurant + '"></div>');
         $('.restaurant' + nb_restaurant).append('<h2>' + place.name + '</h2>');
@@ -501,7 +501,7 @@ class Map {
 
         var request = {
             placeId: place_id,
-            fields: ['name', 'rating', 'formatted_phone_number', 'formatted_address', 'photo', 'review']
+            fields: ['name', 'rating', 'formatted_phone_number', 'formatted_address', 'photo', 'review', 'geometry', 'place_id']
         };
         var reqUri = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' + place_id + '&key=AIzaSyAluhfy6Err8NZWAUGD2HxhT1NgOcnWAVM';
 
@@ -528,31 +528,45 @@ class Map {
             }
 
 
-            console.log('%c' + Nom, 'font-weight: bold');
+            /**console.log('%c' + Nom, 'font-weight: bold');
             console.log('Adresse= ' + Adresse);
-            console.log('Numeros= ' + Numeros);
+            console.log('Numeros= ' + Numeros);**/
             $('.contenu_resto').append('<div class="header_presentation"></div>')
-
-
+            let lat = place.geometry.location.lat();
+            let lng = place.geometry.location.lng();
+            $('.contenu_resto').append('<div class="contenu"><div class="commentaire_box"></div><div class="autre"></div></div>')
 
             if (place.reviews != null) {
-                $('.contenu_resto').append('<div class="contenu"><div class="commentaire_box"></div><div class="autre"></div></div>')
+                
                 for (var i = 0; i < place.reviews.length; i++) {
                     $('.commentaire_box').append('<div class="commentaire commentaire' + i + '"></div>')
                     $('.commentaire' + i).append('<h2>' + place.reviews[i].author_name + '</h2>')
                     $('.commentaire' + i).append('<h3>' + place.reviews[i].rating + '</h3>')
                     $('.commentaire' + i).append('<p>' + place.reviews[i].text + '</p>')
-                    console.log("%c*****************", 'color:green; font-weight: bold');
+                    /**console.log("%c*****************", 'color:green; font-weight: bold');
                     console.log('%cAuteur = ' + place.reviews[i].author_name, 'color:blue');
                     console.log('%cNote = ' + place.reviews[i].rating, 'color:blue');
-                    console.log('%cCommentaire = ' + place.reviews[i].text, 'color:blue');
+                    console.log('%cCommentaire = ' + place.reviews[i].text, 'color:blue');**/
 
                 }
+                $('.commentaire_box').append('<div class="commentaire commentaireAjout"></div>')
+                $('.commentaireAjout').append('<div class="ajout"></div>')
+                $('.commentaireAjout div').append('<h2>+</h2>')
             }
+            
+            
+            
+            
             if (place.photos != null) {
-                console.log('Photo_url= ' + place.photos[0].getUrl());
+                
+                //console.log('Photo_url= ' + place.photos[0].getUrl());
                 $('.autre').append('<div class="image_box"></div>')
                 $('.contenu_resto .header_presentation').css('background-image', 'url("' + place.photos[0].getUrl() + '")');
+                //$('.contenu_resto .header_presentation').css('background-image', 'url("' + url + '")');
+
+                //https://maps.googleapis.com/maps/api/streetview?size=600x300&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyAluhfy6Err8NZWAUGD2HxhT1NgOcnWAVM
+
+                //console.log(url)
 
 
 
@@ -562,16 +576,29 @@ class Map {
                 }
 
             }
-            console.log("%c▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮", 'color:red; font-weight: bold');
+            let url = "https://maps.googleapis.com/maps/api/streetview?location=" + lat + "," + lng + "&size=640x220&key=AIzaSyAluhfy6Err8NZWAUGD2HxhT1NgOcnWAVM";
+            $('.autre').append('<div class="street"><img src="'+url+'"></div>')
+            //console.log("%c▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮", 'color:red; font-weight: bold');
             $('.header_presentation').append('<div class="nom_resto"><h2>' + Nom + '</h2></div>')
 
-            $('.nom_resto').click(function(){
-                map.retractionRestoInfo();
-            })
+            
+
+            $('.commentaireAjout').on('click', '.ajout', function () {
+                
+                map.ajoutCommentaire();
+            });
         }
     }
 
-    retractionRestoInfo(){
+    ajoutCommentaire(){
+        $('.commentaireAjout').html("");
+        $('.commentaireAjout').addClass("create") ;
+        $('.commentaireAjout').append('<input type="text"><input type="number" min="0" max="5" value="0"><textarea name="" id="" ></textarea><div class="boutonCreateSend"><img src="./img/send-button.svg"></div>')
+
+        //<h2>Ricardo Citera</h2><h3>4</h3><p>Great personal and service. The place was top</p>
+    }
+
+    retractionRestoInfo() {
         $('.contenu_resto').css('min-height', '0vh');
         $('.contenu_resto').css('height', '0vh');
         $('.contenu_resto').html("");
@@ -581,11 +608,19 @@ class Map {
         $('.HUD').css('border-top-right-radius', '50px');
         $('.HUD').css('border-top-left-radius', '50px');
 
+        $('.filtre').fadeIn(500);
+
         //this.gestionClick();
     }
 
     gestionClick() {
-        $('.restaurant').click(function () {
+        $('.contenu_resto').on('click', '.nom_resto', function () {
+                console.log('click retrac')
+                map.retractionRestoInfo();
+            })
+
+        $('.HUD').on('click', '.restaurant', function () {
+            console.log('click HUD')
             map.HUD = $('.HUD').clone();
             //$('.HUD').css('top', '0px');
             $('.HUD').fadeOut(1);
@@ -608,7 +643,9 @@ class Map {
             $('.restaurant h2').css('top', '50%');
             $('.note').fadeOut();
             var id = $(this).attr("id");
-            map.retrouverPlace(id)
+            map.retrouverPlace(id);
+            $('.filtre').fadeOut(500);
+
         });
 
         $('.filtre').click(function () {
@@ -622,37 +659,37 @@ class Map {
         });
 
 
-        $('.filtre').on('click', '.active_div', function() {
-            
+        $('.filtre').on('click', '.active_div', function () {
+
             var id = $(this).attr("id");
             console.log(id)
             map.gestionFiltre(id);
         });
 
+
+
+
     }
 
-    gestionFiltre(id){
+    gestionFiltre(id) {
         //console.log("ID: "+id)
-        for ( var i = 0; i < map.results.length; i++) {
+        for (var i = 0; i < map.results.length; i++) {
             var marker = map.results[i];
             //console.log("Rating: "+parseInt(marker.rating))
             //console.log("ID: "+marker.placeID)
             var rating = parseInt(marker.rating)
             $('.filtre h2').html(id);
-            if(rating === parseInt(id))
-            {
+            if (rating === parseInt(id)) {
                 marker.setVisible(true);
-                $('#'+marker.placeID).css('display','block')
-                
+                $('#' + marker.placeID).css('display', 'block')
+
                 //map.results[1].setVisible(false)
-            } 
-            else
-            {        
-                $('#'+marker.placeID).css('display','none')
+            } else {
+                $('#' + marker.placeID).css('display', 'none')
                 marker.setVisible(false);
             }
-        } 
-        
+        }
+
         //console.log('-------------------')
 
 
