@@ -438,8 +438,8 @@ class Map {
     handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
         infoWindow.setContent(browserHasGeolocation ?
-                              'Erreur: Problèmpe avec le service de géolocalisation.' :
-                              'Erreur: Votre navigateur ne supporte pas la géolocalisation.');
+            'Erreur: Problèmpe avec le service de géolocalisation.' :
+            'Erreur: Votre navigateur ne supporte pas la géolocalisation.');
         infoWindow.open(map.map);
     }
 
@@ -503,7 +503,6 @@ class Map {
             placeId: place_id,
             fields: ['name', 'rating', 'formatted_phone_number', 'formatted_address', 'photo', 'review', 'geometry', 'place_id']
         };
-        var reqUri = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' + place_id + '&key=AIzaSyAluhfy6Err8NZWAUGD2HxhT1NgOcnWAVM';
 
         let service = new google.maps.places.PlacesService(map.map);
         service.getDetails(request, this.recupDonnees);
@@ -514,6 +513,7 @@ class Map {
 
     recupDonnees(place, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
+
             let Adresse = place.formatted_address;
             let Nom = place.name;
 
@@ -527,18 +527,15 @@ class Map {
                 let review_text = place.reviews[0].text;
             }
 
-
-            /**console.log('%c' + Nom, 'font-weight: bold');
-            console.log('Adresse= ' + Adresse);
-            console.log('Numeros= ' + Numeros);**/
             $('.contenu_resto').append('<div class="header_presentation"></div>')
             let lat = place.geometry.location.lat();
             let lng = place.geometry.location.lng();
             $('.contenu_resto').append('<div class="contenu"><div class="commentaire_box"></div><div class="autre"></div></div>')
 
             if (place.reviews != null) {
-                
+
                 for (var i = 0; i < place.reviews.length; i++) {
+
                     $('.commentaire_box').append('<div class="commentaire commentaire' + i + '"></div>')
                     $('.commentaire' + i).append('<h2>' + place.reviews[i].author_name + '</h2>')
                     $('.commentaire' + i).append('<h3>' + place.reviews[i].rating + '</h3>')
@@ -553,12 +550,12 @@ class Map {
                 $('.commentaireAjout').append('<div class="ajout"></div>')
                 $('.commentaireAjout div').append('<h2>+</h2>')
             }
-            
-            
-            
-            
+
+
+
+
             if (place.photos != null) {
-                
+
                 //console.log('Photo_url= ' + place.photos[0].getUrl());
                 $('.autre').append('<div class="image_box"></div>')
                 $('.contenu_resto .header_presentation').css('background-image', 'url("' + place.photos[0].getUrl() + '")');
@@ -572,27 +569,28 @@ class Map {
 
                 for (var j = 0; j < place.photos.length; j++) {
 
+
                     $('.contenu .autre .image_box').append('<div class="image"><img src="' + place.photos[j].getUrl() + '"></div>');
                 }
 
             }
             let url = "https://maps.googleapis.com/maps/api/streetview?location=" + lat + "," + lng + "&size=640x220&key=AIzaSyAluhfy6Err8NZWAUGD2HxhT1NgOcnWAVM";
-            $('.autre').append('<div class="street"><img src="'+url+'"></div>')
+            $('.autre').append('<div class="street"><img src="' + url + '"></div>')
             //console.log("%c▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮", 'color:red; font-weight: bold');
             $('.header_presentation').append('<div class="nom_resto"><h2>' + Nom + '</h2></div>')
 
-            
+
 
             $('.commentaireAjout').on('click', '.ajout', function () {
-                
+
                 map.ajoutCommentaire();
             });
         }
     }
 
-    ajoutCommentaire(){
+    ajoutCommentaire() {
         $('.commentaireAjout').html("");
-        $('.commentaireAjout').addClass("create") ;
+        $('.commentaireAjout').addClass("create");
         $('.commentaireAjout').append('<input type="text"><input type="number" min="0" max="5" value="0"><textarea name="" id="" ></textarea><div class="boutonCreateSend"><img src="./img/send-button.svg"></div>')
 
         //<h2>Ricardo Citera</h2><h3>4</h3><p>Great personal and service. The place was top</p>
@@ -607,6 +605,7 @@ class Map {
         $('.HUD').html(this.HUD);
         $('.HUD').css('border-top-right-radius', '50px');
         $('.HUD').css('border-top-left-radius', '50px');
+        $('.HUD').css('justify-content', 'start');
 
         $('.filtre').fadeIn(500);
 
@@ -615,13 +614,17 @@ class Map {
 
     gestionClick() {
         $('.contenu_resto').on('click', '.nom_resto', function () {
-                console.log('click retrac')
-                map.retractionRestoInfo();
-            })
+            map.retractionRestoInfo();
+        })
 
         $('.HUD').on('click', '.restaurant', function () {
             console.log('click HUD')
-            map.HUD = $('.HUD').clone();
+            map.HUD = {};
+            delete map.HUD;
+            console.log(map.HUD)
+            map.HUD = $('.HUD').html();
+            $('.HUD').html("");
+            console.log(map.HUD)
             //$('.HUD').css('top', '0px');
             $('.HUD').fadeOut(1);
             //$('.HUD').css('height', '100vh');
@@ -630,8 +633,6 @@ class Map {
             $('.contenu_resto').css('top', '0px');
             var resto = $(this).clone();
             //$('.HUD').html(resto);
-
-            $('.HUD').html("");
             $('.restaurant').css('width', '80%');
             $('.HUD').css('justify-content', 'space-around');
             $('.HUD').css('align-items', 'stretch');
