@@ -12,6 +12,7 @@ class Map {
         this.latlng = new google.maps.LatLng(50.6760032, 1.86507089);
         this.HUD;
         this.results = null;
+        this.markerCenter;
 
         this.map = new google.maps.Map(document.getElementById(div), {
             center: {
@@ -329,6 +330,9 @@ class Map {
         this.decouvreResto();
         this.CreationFiltre();
 
+
+
+
     }
 
 
@@ -338,11 +342,11 @@ class Map {
             navigator.geolocation.getCurrentPosition(function (position) {
                 let myLatlng_perso = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 //alert(myLatlng_perso)
-                var marker_localisation = new google.maps.Marker({
+                map.markerCenter = new google.maps.Marker({
                     position: myLatlng_perso,
                     map: map.map,
                     title: "Votre position",
-                    animation: google.maps.Animation.DROP,
+                    //animation: google.maps.Animation.DROP,
                     icon: {
                         url: './img/marker4.png',
                         scaledSize: new google.maps.Size(32, 32),
@@ -354,10 +358,48 @@ class Map {
 
                 });
 
+
+                var lat_perso = position.coords.latitude;
+                var long_perso = position.coords.longitude;
+                var pos = {
+                    lat: lat_perso,
+                    lng: long_perso
+                };
+                map.map.setCenter(pos);
+
             }, function () {
                 this.map.handleLocationError(true, infoWindow, this.map.getCenter());
             });
         }
+
+        this.map.addListener('dragend', function () {
+            var latLng = new google.maps.LatLng(map.map.getCenter().lat(), map.map.getCenter().lng());
+            console.log(latLng.lat())
+            map.map.setCenter(latLng);
+            map.map.center = latLng;
+            map.removeAllMarker();
+        });
+
+    }
+
+    recreateMarkerCenter() {
+        let myLatlng_perso = new google.maps.LatLng(map.map.getCenter().lat(), map.map.getCenter().lng());
+        //alert(myLatlng_perso)
+        map.markerCenter = new google.maps.Marker({
+            position: myLatlng_perso,
+            map: map.map,
+            title: "Votre position",
+            //animation: google.maps.Animation.DROP,
+            icon: {
+                url: './img/marker4.png',
+                scaledSize: new google.maps.Size(32, 32),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(16, 16)
+
+            }
+
+
+        });
     }
 
 
@@ -380,14 +422,11 @@ class Map {
 
     createMarker(place) {
         this.RemplirHUD(place);
-
-
         var placeLoc = place.geometry.location;
         var marker = new google.maps.Marker({
             placeID: place.place_id,
             map: map.map,
             position: place.geometry.location,
-            animation: google.maps.Animation.DROP,
             icon: {
                 url: './img/marker3.png',
                 scaledSize: new google.maps.Size(32, 32)
@@ -398,9 +437,21 @@ class Map {
         });
         map.results.push(marker)
         google.maps.event.addListener(marker, 'click', function () {
-            infowindow.setContent(place.name);
-            infowindow.open(map.map, this);
+
         });
+
+
+    }
+
+    removeAllMarker() {
+        for (var i = 0; i < map.results.length; i++) {
+            map.results[i].setMap(null);
+        }
+        $('.HUD').remove();
+        map.markerCenter.setMap(null);
+
+        map.recreateMarkerCenter();
+        map.RedecouvreResto();
 
 
     }
@@ -433,6 +484,35 @@ class Map {
             // Browser doesn't support Geolocation
             this.handleLocationError(false, infoWindow, map.map.getCenter());
         }
+
+
+
+
+
+    }
+
+    RedecouvreResto() {
+
+        var lat_perso = map.map.getCenter().lat();
+        var long_perso = map.map.getCenter().lng();
+        var pos = {
+            lat: lat_perso,
+            lng: long_perso
+        };
+        //getZoom
+        var request = {
+            location: pos,
+            radius: '5000',
+            type: ['restaurant']
+        };
+
+        let service = new google.maps.places.PlacesService(map.map);
+        service.nearbySearch(request, map.callback);
+        delete map.HUD;
+        map.map.setCenter(pos);
+
+        map.HUDPlace()
+
     }
 
     handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -460,6 +540,7 @@ class Map {
         //console.log(id_place)
 
         this.JSONPlace(id_place)
+        console.log("oui")
     }
 
     RemplirHUD(place) {
@@ -574,6 +655,8 @@ class Map {
                 }
 
             }
+
+
             let url = "https://maps.googleapis.com/maps/api/streetview?location=" + lat + "," + lng + "&size=640x220&key=AIzaSyAluhfy6Err8NZWAUGD2HxhT1NgOcnWAVM";
             $('.autre').append('<div class="street"><img src="' + url + '"></div>')
             //console.log("%c▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮", 'color:red; font-weight: bold');
@@ -619,12 +702,11 @@ class Map {
 
         $('.HUD').on('click', '.restaurant', function () {
             console.log('click HUD')
-            map.HUD = {};
             delete map.HUD;
-            console.log(map.HUD)
+
             map.HUD = $('.HUD').html();
-            $('.HUD').html("");
             console.log(map.HUD)
+            $('.HUD').html("");
             //$('.HUD').css('top', '0px');
             $('.HUD').fadeOut(1);
             //$('.HUD').css('height', '100vh');
@@ -647,6 +729,7 @@ class Map {
             map.retrouverPlace(id);
             $('.filtre').fadeOut(500);
 
+
         });
 
         $('.filtre').click(function () {
@@ -667,7 +750,16 @@ class Map {
             map.gestionFiltre(id);
         });
 
+        $('.contenu_resto').on('click', '.image', function () {
+            $('.contenu_resto').append('<div class="image_full">' + $(this).html() + '<img src="./img/close.svg" class="close"></div>')
+            $('body').css('overflow', "hidden");
+            window.scroll(0, 0);
+        });
 
+        $('.contenu_resto').on('click', '.close', function () {
+            $('.image_full').remove();
+            $('body').css('overflow', "auto");
+        });
 
 
     }
