@@ -138,6 +138,7 @@ body {
       -webkit-box-shadow: 5px 5px 100px #1a1a1a;
       box-shadow: 5px 5px 100px #1a1a1a;
       max-height: 80%;
+      max-width: 80%;
       border-radius: 50px; }
     .contenu_resto .image_full .close {
       top: 2%;
