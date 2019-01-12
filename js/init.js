@@ -13,6 +13,10 @@ class Map {
         this.HUD;
         this.results = null;
         this.markerCenter;
+        this.circle = {
+            lat: this.lat,
+            lng: this.lon
+        };
 
         this.map = new google.maps.Map(document.getElementById(div), {
             center: {
@@ -367,6 +371,9 @@ class Map {
                 };
                 map.map.setCenter(pos);
 
+                map.creationCircle(map.map.getCenter());
+
+
             }, function () {
                 this.map.handleLocationError(true, infoWindow, this.map.getCenter());
             });
@@ -374,12 +381,32 @@ class Map {
 
         this.map.addListener('dragend', function () {
             var latLng = new google.maps.LatLng(map.map.getCenter().lat(), map.map.getCenter().lng());
+            map.removeCircle();
             console.log(latLng.lat())
             map.map.setCenter(latLng);
             map.map.center = latLng;
             map.removeAllMarker();
+            map.creationCircle(map.map.getCenter())
         });
 
+    }
+
+    creationCircle(center) {
+        this.center = center;
+        this.circle = new google.maps.Circle({
+            strokeColor: '#F9C822',
+            strokeOpacity: 0.5,
+            strokeWeight: 2,
+            fillColor: '#F9C822',
+            fillOpacity: 0.1,
+            map: map.map,
+            center: center,
+            radius: 3000
+        });
+    }
+
+    removeCircle() {
+        this.circle.setMap(null);
     }
 
     recreateMarkerCenter() {
@@ -416,7 +443,10 @@ class Map {
                 //console.log(map.results)
             }
 
-        } else(alert("Pas de restaurant aux alentours"))
+        } else {
+            //alert("Pas de restaurant aux alentours")
+        }
+
         map.gestionClick();
     }
 
@@ -470,7 +500,7 @@ class Map {
                 //getZoom
                 var request = {
                     location: pos,
-                    radius: '5000',
+                    radius: '3000',
                     type: ['restaurant']
                 };
 
@@ -502,7 +532,7 @@ class Map {
         //getZoom
         var request = {
             location: pos,
-            radius: '5000',
+            radius: '3000',
             type: ['restaurant']
         };
 
