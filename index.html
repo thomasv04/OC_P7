@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-    <head>
+<head>
     <meta charset="UTF-8">
     <title>Avis restaurant</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
     <link rel="icon" type="image/png" href="img/star.png" />
 
 </head>
 
 <body>
 
-    <!--AIzaSyAluhfy6Err8NZWAUGD2HxhT1NgOcnWAVM-->
     <div id="map"></div>
-    <!--https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CmRaAAAAu3xBODIggYLb4iRT9kbR5fk5mqnkIIrOj6KuSD7iuQSuEmLtEMB0uGOsDWP7dBeyqKdz94tanpGRCA6g77swP4nrCpGNg-MYk6ZoVsVGKKFVxq2I9ghHJ6TuGVTRGbbIEhDdBPqsvgItNPTzQEXr_TiUGhReVDHtRveB_LtOyB3SaDlUYzmNtA&key=AIzaSyAluhfy6Err8NZWAUGD2HxhT1NgOcnWAVM-->
 
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://maps.google.com/maps/api/js?key=AIzaSyAluhfy6Err8NZWAUGD2HxhT1NgOcnWAVM&libraries=places" type="text/javascript"></script>
+<script src="https://maps.google.com/maps/api/js?v=quarterly&key=AIzaSyAluhfy6Err8NZWAUGD2HxhT1NgOcnWAVM&libraries=places" type="text/javascript"></script>
+<script src="https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/src/markerclusterer.js"></script>
+<script src="http://jawj.github.io/OverlappingMarkerSpiderfier/bin/oms.min.js"></script>
 <script src="js/init.js"></script>
-<script src="js/marker.js"></script>
 <script>
     let map = new Map();
     map.initMap("map");
