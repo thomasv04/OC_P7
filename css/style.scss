@@ -31,6 +31,72 @@ body {
     position: relative;
     font-family: $font_0, $font_1;
     overflow-y: hidden;
+<<<<<<< HEAD
+=======
+}
+
+
+.ajoutMarkerName {
+    display: block;
+    width: 50%;
+    max-width: 400px;
+    height: 50%;
+    max-height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 20px;
+    border: 2px solid #9b9b9b;
+
+    input {
+        margin: auto;
+        width: 80%;
+        display: block;
+        margin-top: 10px;
+        height: 30%;
+        border: 2px solid #dedede;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 20px;
+        padding: 2px 5px;
+    }
+
+    h2 {
+        margin: auto;
+        display: block;
+        width: 30%;
+        margin-top: 10px;
+        height: auto;
+        padding: 5px;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 20px;
+        background: #9b9b9b;
+        cursor: pointer;
+        color: white;
+    }
+
+}
+
+.loadingScreen {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: white;
+    z-index: 500;
+
+    img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 700px;
+    }
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
 }
 
 .loadingScreen {
@@ -326,6 +392,7 @@ body {
 
 .HUD {
     position: absolute;
+<<<<<<< HEAD
     display: none;
     height: 90vh;
     width: 30%;
@@ -336,6 +403,19 @@ body {
     align-items: center;
     top: 5vh;
     left: 2vw;
+=======
+    display: flex;
+    height: 20vh;
+    width: 100%;
+    background: rgba(250, 250, 250, 0);
+    align-items: flex-end !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    align-items: center;
+    top: calc(100% - 20vh);
+    padding: 0;
+    margin: 0;
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
     transition: all .3s;
     flex-wrap: wrap;
     border-radius: 20px;
@@ -370,10 +450,33 @@ body {
         border-top-right-radius: 50px;
     }
 
+    .contenu {
+        width: 100%;
+        margin: auto;
+        position: relative;
+        margin-top: -5vh;
+        display: flex;
+        justify-content: space-around;
+        align-content: space-around;
+        background: $concrete_100;
+        padding-top: 3vh;
+        min-height: 67vh;
+        border-top-left-radius: 50px;
+        border-top-right-radius: 50px;
+    }
+
     .header_presentation {
         position: relative;
+<<<<<<< HEAD
         width: 80%;
         height: 10vh;
+=======
+        width: 100%;
+        height: 50vh;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100vw;
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
         top: 0;
         margin: auto;
         transition: background-size .3s;
@@ -381,12 +484,22 @@ body {
         .retour {
             width: 70px;
             height: 70px;
+<<<<<<< HEAD
             background: #fafafa;
             border-radius: 50%;
             position: absolute;
             top: 20px;
             left: -10%;
             cursor: pointer;
+=======
+            background: $concrete_100;
+            border-radius: 50%;
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            cursor: pointer;
+            box-shadow: 2px 2px 10px $color_silver_approx;
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
 
             img {
                 width: 55%;
@@ -407,16 +520,29 @@ body {
         .nom_resto {
             position: absolute;
             display: block;
+<<<<<<< HEAD
             background: #fafafa;
             height: 8vh;
+=======
+            background: $concrete_100;
+            height: 8vh;
+            border-radius: 20px;
+            box-shadow: 2px 2px 10px $color_silver_approx;
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
             width: auto;
             max-width: 50vw;
             flex: 0 0 auto;
             padding: 0px 20px;
             //margin: 5px 15px;
             transition: all .3s;
+<<<<<<< HEAD
             left: 0%;
             top: 10%;
+=======
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -40%);
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
             cursor: pointer;
             border: 5px solid transparent;
             transition: border .3s;
@@ -424,7 +550,11 @@ body {
 
             .nom_etoile {
                 position: absolute;
+<<<<<<< HEAD
                 display: none;
+=======
+                display: flex;
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
                 justify-content: space-around;
                 align-content: space-around;
                 align-items: center;
@@ -435,7 +565,11 @@ body {
                 padding: 0 20px;
                 left: 50%;
                 transform: translatex(-50%);
+<<<<<<< HEAD
                 background: #fafafa;
+=======
+                background: $concrete_100;
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
                 border-radius: 20px;
                 box-shadow: 2px 2px 10px $color_silver_approx;
                 border: 2px solid $color_silver_approx;
@@ -453,12 +587,19 @@ body {
                 margin: 0;
                 padding: 0;
                 line-height: 8vh;
+<<<<<<< HEAD
                 color: black;
+=======
+                color: $gray;
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 transition: all .3s;
+<<<<<<< HEAD
                 font-family: 'Raleway' !important;
+=======
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
 
             }
         }
@@ -509,6 +650,7 @@ body {
 
 .restaurant {
     position: relative;
+<<<<<<< HEAD
     margin: auto;
     display: flex;
     height: 150px;
@@ -516,6 +658,16 @@ body {
     //box-shadow: 2px 2px 10px $color_silver_approx;
     margin-top: 20px;
     width: 90%;
+=======
+    display: block;
+    background: rgba(255, 255, 255, 1);
+    height: 45%;
+    border-radius: 15px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    //box-shadow: 2px 2px 10px $color_silver_approx;
+    width: 15%;
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
     flex: 0 0 auto;
     cursor: pointer;
     transition: all .3s;
@@ -541,10 +693,25 @@ body {
 
     }
 
+    .imageResto {
+        height: 100%;
+        position: absolute;
+        top: -100%;
+        width: 100%;
+        z-index: 5;
+        background: #9b9b9b;
+        background-size: 100% auto;
+        background-position: center;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+
+    }
+
     &:hover {
         animation: animation_restaurant 1.2s infinite;
     }
 
+<<<<<<< HEAD
 
 
     @keyframes animation_restaurant {
@@ -566,6 +733,27 @@ body {
 
         100% {
             margin-right: 12px;
+=======
+    @keyframes animation_restaurant {
+        0% {
+            margin-bottom: 12px;
+        }
+
+        25% {
+            margin-bottom: 5px;
+        }
+
+        50% {
+            margin-bottom: 12px;
+        }
+
+        75% {
+            margin-bottom: 5px;
+        }
+
+        100% {
+            margin-bottom: 12px;
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
         }
     }
 
@@ -600,7 +788,11 @@ body {
     align-items: center;
 
     img {
+<<<<<<< HEAD
         width: 6%;
+=======
+        width: 11%;
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
     }
 }
 
@@ -657,15 +849,45 @@ body {
             }
         }
 
+        .profil {
+            width: 7%;
+        }
+
+        .newProfil {
+            width: 7%;
+            height: 0;
+            padding-top: 7%;
+            border-radius: 50%;
+            position: relative;
+            border: 2px dashed black;
+
+            h2 {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                margin: 0;
+                text-align: center;
+                color: black;
+                font-weight: 100;
+
+            }
+        }
+
         p {
             width: 90%;
             margin: 0px 15px 15px 0px;
             padding: 15px;
+<<<<<<< HEAD
             padding-top: 30px;
+=======
+            padding-top: 0px;
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
             border-radius: 15px;
             text-align: justify;
             font-size: 18px;
             font-weight: 500;
+<<<<<<< HEAD
             position: relative;
             line-height: 25px;
         }
@@ -696,10 +918,24 @@ body {
                 font-size: 18px;
                 font-weight: 100;
                 width: 100%;
+=======
+        }
+
+        h2 {
+            width: 60%;
+            font-weight: bold;
+            font-size: 30px;
+
+            span {
+                display: block;
+                font-size: 15px;
+                font-weight: 100;
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
             }
         }
 
         .etoile {
+<<<<<<< HEAD
             width: 30%;
             font-weight: bold;
             display: flex;
@@ -713,6 +949,20 @@ body {
 
             img {
                 margin: 0 2px;
+=======
+            width: 15%;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-around;
+            align-content: space-around;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            margin-bottom: 2%;
+            height: auto;
+
+            img {
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
                 width: 15%;
             }
 
@@ -737,6 +987,7 @@ body {
     position: relative
 }
 
+<<<<<<< HEAD
 .autre:after {
     position: absolute;
     content: '';
@@ -749,6 +1000,8 @@ body {
     transform: translateY(-50%);
 
 }
+=======
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
 
 
 .commentaireAjout {
@@ -957,6 +1210,7 @@ body {
 }
 
 .filtre {
+<<<<<<< HEAD
     height: 80px;
     width: 350px;
     position: absolute;
@@ -964,6 +1218,16 @@ body {
     bottom: 2vh;
     left: 14vw;
     z-index: 5;
+=======
+    height: 95px;
+    width: 560px;
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    z-index: 0;
+    background: $blanc_gris;
+    border-radius: 20px;
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
     transition: width .3s, border-radius .3s;
     display: flex;
     justify-content: space-around;
@@ -979,6 +1243,7 @@ body {
     -ms-flex-align: center;
     align-items: center;
 
+<<<<<<< HEAD
     div {
         background: #e6e6e6;
         width: 45px;
@@ -991,6 +1256,33 @@ body {
         border: 3px solid #9b9b9b;
         font-size: 1vw;
 
+=======
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -ms-flex-line-pack: distribute;
+    align-content: space-around;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    div {
+        background: #e6e6e6;
+        width: 75px;
+        height: 75px;
+        text-align: center;
+        line-height: 75px;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        -webkit-transition: background .3s;
+        transition: background .3s, border .3s;
+        border: 3px solid #9b9b9b;
+
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
         &:hover {
             background: #ffff48;
         }
@@ -1004,6 +1296,10 @@ body {
 
 .activefiltre {
     background: #ffff48;
+<<<<<<< HEAD
+=======
+    border-color: #ffc749 !important;
+>>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
 }
 
 .gm-style div a {
