@@ -18,12 +18,9 @@ class Map {
         this.commentID = [];
         this.comment = [];
         this.markerClick = [];
-<<<<<<< HEAD
         this.type = 'restaurant';
         this.typeColor = '#2fdbc1';
         this.nbElement = 0;
-=======
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
 
         this.minFiltre = 0;
         this.maxFiltre = 5;
@@ -251,7 +248,7 @@ class Map {
                 }
             ]
         });
-
+        console.log('Google Maps API version: ' + google.maps.version);
 
 
         $('body').append('<div class="loadingScreen"><img src="./img/loaderSite.gif"></div>')
@@ -259,7 +256,7 @@ class Map {
         google.maps.event.addListener(map.map, 'tilesloaded', function () {
             if (map.load === null) {
                 map.load = "isLoaded";
-
+                $('.loadingScreen').delay(2000).fadeOut(500);
 
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(function (position) {
@@ -275,7 +272,9 @@ class Map {
                         //map.createRectangle();
 
                         map.decouvreResto('restaurant');
-                        $('.loadingScreen').delay(2000).fadeOut(500);
+
+
+
 
                     })
 
@@ -344,7 +343,8 @@ class Map {
                         console.log(map.results[1])
                         for (var i = 0; i < map.results.length; i++) {
                             var marker = map.results[i];
-                            var rating = parseFloat(marker.rating)
+                            var rating = parseInt(marker.rating)
+                            console.log(rating)
                             if (rating <= map.maxFiltre && rating >= map.minFiltre) {
                                 var etoile = rating;
                                 var etoile_grise = 5 - rating;
@@ -455,7 +455,6 @@ class Map {
 
 
                 }
-<<<<<<< HEAD
 
 
 
@@ -470,79 +469,11 @@ class Map {
 
             }
 
-=======
-            ]
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
         });
 
 
 
-<<<<<<< HEAD
     }
-=======
-        $('body').append('<div class="loadingScreen"><img src="./img/loaderSite.gif"></div>')
-
-        google.maps.event.addListener(map.map, 'tilesloaded', function () {
-            if (map.load === null) {
-                map.load = "isLoaded";
-
-
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(function (position) {
-
-                        var lat_perso = position.coords.latitude;
-                        var long_perso = position.coords.longitude;
-                        var pos = {
-                            lat: lat_perso,
-                            lng: long_perso
-                        };
-                        map.map.setCenter(pos);
-                        map.creationMarker();
-                        //map.createRectangle();
-
-                        map.decouvreResto();
-                        $('.loadingScreen').delay(2000).fadeOut(500);
-
-                    })
-                    var onclick = 0;
-                    map.CreationFiltre();
-                    map.map.addListener('click', function (e) {
-                        if (onclick === 0) {
-                            onclick = 1;
-                            $('body').append('<div class="ajoutMarkerName"><input type="text"><h2>Créer</h2></div>')
-                            $('.ajoutMarkerName h2').click(function () {
-                                var val = $('.ajoutMarkerName input').val();
-                                if (val != "") {
-                                    map.createMarkerClick(e.latLng, val);
-                                }
-                                $('.ajoutMarkerName').remove()
-
-                                onclick = 0;
-
-                            })
-                        }
-
-
-
-                    });
-                }
-
-
-
-                //map.RedecouvreResto();
-
-                /**var markerCluster = new MarkerClusterer(map.map, map.results, {
-                imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m'
-
-            });**/
-
-
-
-            }
-
-        });
-
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
 
     changeIconColor(id) {
         $('.icon').removeClass('active');
@@ -574,7 +505,6 @@ class Map {
 
     }
 
-<<<<<<< HEAD
     createMarkerClick(location) {
         $('body').append('<div class="nameMarker"><input type="text"><h3>Valider</h3></div>');
         $('.nameMarker h3').css('background', map.typeColor);
@@ -589,6 +519,7 @@ class Map {
                     map: map.map,
                     title: name,
                     rating: "0",
+                    nbComment: "0",
                     animation: google.maps.Animation.DROP,
                     newMarker: "1",
                     placeID: nb,
@@ -628,26 +559,6 @@ class Map {
 
 
 
-=======
-    createMarkerClick(location, nom) {
-        var nb = this.markerClick.length;
-        map.markerClick[nb] = new google.maps.Marker({
-            position: location,
-            map: map.map,
-            title: nom,
-            rating: "0",
-            animation: google.maps.Animation.DROP,
-            icon: {
-                url: './img/marker2.png',
-                scaledSize: new google.maps.Size(32, 32),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(16, 16)
-
-            }
-        });
-
-        map.addHUD(nb, map.markerClick[nb]);
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
 
 
     }
@@ -694,30 +605,8 @@ class Map {
             });
         }
 
-<<<<<<< HEAD
 
 
-
-
-
-
-=======
-        this.map.addListener('dragend', function () {
-            var latLng = new google.maps.LatLng(map.map.getCenter().lat(), map.map.getCenter().lng());
-            map.CreationFiltre();
-            map.colorFilter()
-            //map.removeRectangle();
-            map.map.setCenter(latLng);
-            map.map.center = latLng;
-            map.removeAllMarker();
-            //map.reCreateRectangle();
-            map.recreateMarkerCenter();
-            map.RedecouvreResto();
-            map.detectMarkerClick();
-
-
-        });
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
 
 
 
@@ -753,11 +642,7 @@ class Map {
 
 
 
-<<<<<<< HEAD
         //$('.contenu_resto .header_presentation').css('background-image', 'url("./img/bg_resto.png")');
-=======
-        $('.contenu_resto .header_presentation').css('background-image', 'url("./img/bg_resto.png")');
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
 
 
 
@@ -792,48 +677,13 @@ class Map {
             for (var i = 0; i < map.markerClick.length; i++) {
                 if (map.map.getBounds().contains(map.markerClick[i].position)) {
                     map.markerClick[i].setMap(map.map)
-<<<<<<< HEAD
                     //map.addHUD(i, map.markerClick[i]);
-=======
-                    map.addHUD(i, map.markerClick[i]);
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
                 } else {
                     map.markerClick[i].setMap(null)
                 }
             }
 
         }
-<<<<<<< HEAD
-=======
-    }
-
-    addHUD(id, marker) {
-        console.log(marker)
-        $('.HUD').prepend('<div id="' + id + '" class="restaurant restaurantAdd"></div>');
-        $('#' + id + '.restaurant').append('<div class="imageResto"></div>')
-        $('#' + id + '.restaurant .imageResto').css('background-image', 'url("./img/bg_resto.png")')
-        $('#' + id + '.restaurant').append('<h2>' + marker.title + '</h2>');
-        console.log(marker.title)
-
-        $('#' + id + '.restaurant').append('<div class="note"></div>');
-
-        if (marker.rating === undefined) {
-            marker.rating = 0;
-        }
-        var rating_round = Math.round(marker.rating);
-        var etoile_grise = 5 - rating_round;
-
-        //$('.restaurant' + nb_restaurant + ' .note').append('<span>' + place.rating + '</span>');
-
-
-        for (var i = 0; i < rating_round; i++) {
-            $('#' + id + '.restaurant .note').append('<img src="img/star.svg">');
-        }
-
-        for (var j = 0; j < etoile_grise; j++) {
-            $('#' + id + '.restaurant .note').append('<img src="img/star_grey.svg">');
-        }
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
     }
 
     /**addHUD(id, marker) {
@@ -916,7 +766,6 @@ class Map {
 
 
                 }
-<<<<<<< HEAD
             }
 
             $('.seeMore h2').remove();
@@ -927,19 +776,11 @@ class Map {
                 if (map.results[i].rating <= map.maxFiltre && map.results[i].rating >= map.minFiltre) {
                     nbFiltre++;
                 }
-=======
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
             }
             var nbNew = map.markerClick.length;
             nbFiltre = nbFiltre + nbNew;
 
             $('.seeMore').append('<h2 class="nbElement">' + nbFiltre + '</h2>').css('background', map.typeColor);
-
-
-
-
-
-
 
 
 
@@ -966,10 +807,7 @@ class Map {
     }
 
     createMarker(place) {
-<<<<<<< HEAD
 
-=======
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
         map.dataHUD(place);
 
         var placeLoc = place.geometry.location;
@@ -988,7 +826,6 @@ class Map {
         });
         map.results.push(marker)
         google.maps.event.addListener(marker, 'click', function () {
-<<<<<<< HEAD
             console.log(marker);
             $('body').css('overflow-y', 'auto');
             $('.contenu_resto').css('z-index', '6');
@@ -1010,9 +847,6 @@ class Map {
 
         google.maps.event.addListener(marker, 'mouseover', function () {
             console.log(this)
-=======
-            console.log("marker")
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
         });
 
 
@@ -1040,11 +874,7 @@ class Map {
                 //console.log(map.rectangle.getBounds())
                 var request = {
                     location: map.map.center,
-<<<<<<< HEAD
                     type: [type],
-=======
-                    type: ['restaurant'],
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
                     bounds: map.map.getBounds()
                 };
 
@@ -1075,11 +905,7 @@ class Map {
         //getZoom
         var request = {
             location: pos,
-<<<<<<< HEAD
             type: [type],
-=======
-            type: ['restaurant'],
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
             bounds: map.map.getBounds()
         };
 
@@ -1120,15 +946,6 @@ class Map {
         var nb_restaurant = $('.restaurant').length + 1;
         $('.HUD').append('<div id="' + place.place_id + '" class="restaurant restaurant' + nb_restaurant + '"></div>');
         $('.restaurant' + nb_restaurant).append('<div class="imageResto"></div>')
-<<<<<<< HEAD
-=======
-        if (place.photos != null) {
-
-            $('.restaurant' + nb_restaurant + ' .imageResto').css('background-image', 'url("' + place.photos[0].getUrl() + '")')
-        } else {
-            $('.restaurant' + nb_restaurant + ' .imageResto').css('background-image', 'url("./img/bg_resto.png")')
-        }
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
         $('.restaurant' + nb_restaurant).append('<h2>' + place.name + '</h2>');
 
 
@@ -1158,6 +975,7 @@ class Map {
 
 
     }
+
 
     JSONPlace(place_id) {
         let Nom = null;
@@ -1227,27 +1045,16 @@ class Map {
                     $('.commentaire_box').append('<div class="commentaire commentaire' + i + '"></div>')
                     $('.commentaire' + i).append('<img class="profil" src="' + place.reviews[i].profile_photo_url + '">')
                     $('.commentaire' + i).append('<h2>' + place.reviews[i].author_name + '<span>' + dateFinal + '</span></h2>')
-<<<<<<< HEAD
                     $('.commentaire' + i + ' h2 span').append('<div class="etoile"></div>')
 
                     for (var k = 0; k < place.reviews[i].rating; k++) {
                         $('.commentaire' + i + ' h2 span .etoile').append('<img src="img/star.svg">');
-=======
-                    $('.commentaire' + i).append('<div class="etoile"></div>')
-
-                    for (var k = 0; k < place.reviews[i].rating; k++) {
-                        $('.commentaire' + i + ' .etoile').append('<img src="img/star.svg">');
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
                     }
 
                     var etoile_grise = 5 - place.reviews[i].rating;
 
                     for (var j = 0; j < etoile_grise; j++) {
-<<<<<<< HEAD
                         $('.commentaire' + i + ' h2 span .etoile').append('<img src="img/star_grey.svg">');
-=======
-                        $('.commentaire' + i + ' .etoile').append('<img src="img/star_grey.svg">');
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
                     }
 
                     //$('.commentaire' + i).append('<h3>' + place.reviews[i].rating + '</h3>')
@@ -1283,24 +1090,13 @@ class Map {
                 for (var j = 0; j < place.photos.length; j++) {
 
 
-<<<<<<< HEAD
-=======
-                var image = [];
-                for (var j = 1; j < place.photos.length; j++) {
-
-
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
                     $('.contenu .autre .image_box').append('<div class="image image' + j + '"></div>');
                     $('.contenu .autre .image_box .image' + j).append('<div class="loader"><img src="./img/loader.gif" class="loader_image"></div>')
                     image[j] = new Image();
                     $(image[j]).fadeOut(1)
                     image[j].onload = function () {
                         $('.image_box .image' + j + ' .loader').css('display', 'none')
-<<<<<<< HEAD
                         $(this).fadeIn(1300);
-=======
-                        $(this).fadeIn(300);
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
 
                     }
                     image[j].src = place.photos[j].getUrl();
@@ -1314,8 +1110,6 @@ class Map {
 
                 }
 
-            } else {
-                $('.contenu_resto .header_presentation').css('background-image', 'url("./img/bg_resto.png")');
             }
 
 
@@ -1325,7 +1119,6 @@ class Map {
             //console.log("%c▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮", 'color:red; font-weight: bold');
             $('.header_presentation').append('<div class="nom_resto"><h2>' + Nom + '</h2></div>')
             $('.header_presentation .nom_resto').append('<div class="nom_etoile"></div>');
-<<<<<<< HEAD
 
             for (var k = 0; k < place.rating; k++) {
                 $('.header_presentation .nom_resto .nom_etoile').append('<img src="img/star.svg">');
@@ -1335,21 +1128,8 @@ class Map {
 
             for (var j = 0; j < etoile_grise; j++) {
                 $('.header_presentation .nom_resto .nom_etoile').append('<img src="img/star_grey.svg">');
-=======
-
-            for (var k = 0; k < place.rating; k++) {
-                $('.header_presentation .nom_resto .nom_etoile').append('<img src="img/star.svg">');
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
             }
 
-            var etoile_grise = 5 - place.rating;
-
-            for (var j = 0; j < etoile_grise; j++) {
-                $('.header_presentation .nom_resto .nom_etoile').append('<img src="img/star_grey.svg">');
-            }
-
-
-            map.detectionComment(place.place_id);
 
             map.detectionComment(place.place_id);
 
@@ -1363,7 +1143,6 @@ class Map {
     addCommentArea() {
         $('.commentaireAjout').html("");
         $('.commentaireAjout').addClass("create");
-<<<<<<< HEAD
         $('.commentaireAjout').append('<input type="text" class="nameAdd"><input type="number" min="0" max="5" value="0" class="rating"><textarea name="" id="" class="text"></textarea><div class="boutonCreateSend"><img src="./img/send-button.svg"></div>')
 
 
@@ -1371,7 +1150,6 @@ class Map {
         $('.boutonCreateSend').click(function () {
             $('.commentaireAjout').removeClass("create");
             var name = $('.nameAdd').val();
-            console.log($('.nameAdd').val())
             var rating = $('.rating').val().toString();
             var text = $('.text').val();
             var id = $('.contenu_resto').attr('id');
@@ -1388,28 +1166,6 @@ class Map {
                 var idx = map.commentID.indexOf(id, idx + 1);
             }
 
-=======
-        $('.commentaireAjout').append('<input type="text" class="name"><input type="number" min="0" max="5" value="0" class="rating"><textarea name="" id="" class="text"></textarea><div class="boutonCreateSend"><img src="./img/send-button.svg"></div>')
-
-        $('.boutonCreateSend').click(function () {
-            $('.commentaireAjout').removeClass("create");
-            var name = $('.name').val();
-            var rating = $('.rating').val();
-            var text = $('.text').val();
-            var id = $('.contenu_resto').attr('id');
-            map.addComment(name, rating, text, 0)
-        })
-    }
-
-    detectionComment(id) {
-        if (map.comment.length != 0) {
-            var idx = map.commentID.indexOf(id);
-            var indices = [];
-            while (idx != -1) {
-                indices.push(idx);
-                var idx = map.commentID.indexOf(id, idx + 1);
-            }
-
 
             for (var i = 0; i < indices.length; i++) {
                 var id = map.comment[indices[i]][0];
@@ -1420,6 +1176,19 @@ class Map {
 
                 map.addComment(name, rating, text, 1);
 
+            }
+
+        }
+    }
+
+    detectionMarker(id) {
+        if (map.markerClick.length != 0) {
+            for (var i = 0; i < map.markerClick.length; i++) {
+                var placeID = parseInt(map.markerClick[i].placeID)
+                var idInt = parseInt(id)
+                if (placeID === idInt) {
+                    return (map.markerClick[i])
+                }
             }
 
         }
@@ -1450,7 +1219,8 @@ class Map {
         $('.commentaireAjout').before('<div class="commentaire commentaire' + i + ' add"></div>')
         $('.commentaire' + i).append('<div class="newProfil"><h2>' + name.charAt(0).toUpperCase() + '</h2></div>')
         $('.commentaire' + i).append('<h2>' + name + '<span>' + dateFinal + '</span></h2>')
-        $('.commentaire' + i).append('<div class="etoile"></div>')
+        $('.commentaire' + i + ' h2 span').append('<div class="etoile"></div>');
+
 
         for (var k = 0; k < rating; k++) {
             $('.commentaire' + i + ' .etoile').append('<img src="img/star.svg">');
@@ -1466,91 +1236,28 @@ class Map {
 
         var id = $('.contenu_resto').attr('id');
 
-        var addComment = [id, name, dateFinal, rating, text]
+        var addComment = [id, name, dateFinal, rating, text];
+        console.log("id = " + id)
 
-        if (detection === 0) {
-            map.commentID.push(id);
+        var detectionMarker = map.detectionMarker(id);
 
-            map.comment.push(addComment);
-
-        }
-
-
-
-
-    }
-
-    retractionRestoInfo() {
-        $('.contenu_resto').css('height', '0');
-        $('.contenu_resto').html("");
-        $('.contenu_resto').css('top', '100%');
-        $('.HUD').fadeIn(1);
-        $('.HUD').html(this.HUD);
-        $('.HUD').css('border-top-right-radius', '0px');
-        $('.HUD').css('border-top-left-radius', '0px');
-        $('.HUD').css('justify-content', 'start');
-        $('.HUD').css('background', 'transparent');
-        $('body').css('overflow-y', 'hidden');
-        $('.filtre').fadeIn(500);
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
-
-            for (var i = 0; i < indices.length; i++) {
-                var id = map.comment[indices[i]][0];
-                var name = map.comment[indices[i]][1];
-                var date = map.comment[indices[i]][2];
-                var rating = map.comment[indices[i]][3];
-                var text = map.comment[indices[i]][4];
-
-                map.addComment(name, rating, text, 1);
-
-            }
+        if (parseInt(detectionMarker.newMarker) === 1) {
+            detectionMarker.nbComment++;
+            var nbComment = detectionMarker.nbComment;
+            var ratingDetect = detectionMarker.rating;
+            console.log(ratingDetect);
+            console.log(nbComment);
+            console.log(rating);
+            var points = ratingDetect * (nbComment - 1);
+            console.log(points)
+            var newRating = parseInt(points) + parseInt(rating);
+            newRating = newRating / nbComment;
+            detectionMarker.rating = newRating;
+            console.log(newRating)
 
         }
-    }
 
-<<<<<<< HEAD
-    addComment(name, rating, text, detection) {
-
-        if (rating > 5) {
-            rating = 5;
-        }
-        const monthNames = ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin",
-                            "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"
-                           ];
-        var now = new Date();
-        var year = now.getFullYear();
-        var month = now.getMonth();
-        var monthName = monthNames[month];
-        var day = now.getDate();
-
-        var dateFinal = day + " " + monthName + " " + year;
-
-        $('.commentaireAjout').html("");
-        $('.commentaireAjout').append('<div class="ajout"></div>')
-        $('.commentaireAjout div').append('<h2>+</h2>')
-        var nb = $('.commentaire').length;
-        var i = $('.commentaire').length + 1;
-
-        $('.commentaireAjout').before('<div class="commentaire commentaire' + i + ' add"></div>')
-        $('.commentaire' + i).append('<div class="newProfil"><h2>' + name.charAt(0).toUpperCase() + '</h2></div>')
-        $('.commentaire' + i).append('<h2>' + name + '<span>' + dateFinal + '</span></h2>')
-        $('.commentaire' + i + ' h2 span').append('<div class="etoile"></div>')
-
-        for (var k = 0; k < rating; k++) {
-            $('.commentaire' + i + ' .etoile').append('<img src="img/star.svg">');
-        }
-
-        var etoile_grise = 5 - rating;
-
-        for (var j = 0; j < etoile_grise; j++) {
-            $('.commentaire' + i + ' .etoile').append('<img src="img/star_grey.svg">');
-        }
-
-        $('.commentaire' + i).append('<p>' + text + '</p>');
-
-        var id = $('.contenu_resto').attr('id');
-
-        var addComment = [id, name, dateFinal, rating, text]
+        console.log(map.detectionMarker(id))
 
         if (detection === 0) {
             map.commentID.push(id);
@@ -1582,51 +1289,11 @@ class Map {
 
     gestionClick() {
         $('.contenu_resto').on('click', '.retour', function () {
+            $('.seeMore').removeClass('activeHUD');
+            $('.seeMore .newHUD').fadeOut();
+            $('.seeMore h2').fadeIn(500);
             map.retractionRestoInfo();
         })
-=======
-    gestionClick() {
-        $('.contenu_resto').on('click', '.retour', function () {
-            map.retractionRestoInfo();
-        })
-
-        $('.HUD').on('click', '.restaurant', function () {
-            console.log('click HUD')
-            delete map.HUD;
-            $('body').css('overflow-y', 'auto');
-            map.HUD = $('.HUD').html();
-            $('.HUD').html("");
-            //$('.HUD').css('top', '0px');
-            $('.HUD').fadeOut(1);
-            //$('.HUD').css('height', '100vh');
-            $('.contenu_resto').css('min-height', '100vh');
-            $('.contenu_resto').css('height', 'auto');
-            $('.contenu_resto').css('top', '0px');
-            var resto = $(this).clone();
-            //$('.HUD').html(resto);
-            $('.restaurant').css('width', '80%');
-            $('.HUD').css('justify-content', 'space-around');
-            $('.HUD').css('align-items', 'stretch');
-            $('.HUD').css('border-radius', '0px');
-            $('.HUD').css('background', 'rgba(250, 250, 250, 1)');
-            $('.restaurant').css('height', '70px');
-            $('.restaurant').css('margin-top', '20px');
-            $('.restaurant h2').css('font-size', '25px');
-            $('.restaurant h2').css('top', '50%');
-            $('.note').fadeOut();
-            var id = $(this).attr("id");
-            if ($(this).hasClass('restaurantAdd')) {
-                map.clickHUDNewMarker(id);
-            } else {
-                map.retrouverPlace(id);
-            }
-
-
-            $('.filtre').fadeOut(500);
-
-
-        });
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
 
         $('.contenu_resto').on('click', '.image', function () {
             $('.contenu_resto').append('<div class="image_full">' + $(this).html() + '<img src="./img/close.svg" class="close"></div>')
@@ -1646,18 +1313,12 @@ class Map {
 
                     $('#' + map.minFiltre).removeClass('activefiltre');
                     $('#' + map.minFiltre).css('background', '#e6e6e6');
-<<<<<<< HEAD
                     $('#' + map.minFiltre).css('border-color', '#9b9b9b');
-=======
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
                     map.choixFiltre = 1;
                 } else if (id === map.maxFiltre) {
                     $('#' + map.maxFiltre).removeClass('activefiltre');
                     $('#' + map.maxFiltre).css('background', '#e6e6e6');
-<<<<<<< HEAD
                     $('#' + map.maxFiltre).css('border-color', '#9b9b9b');
-=======
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
                     map.choixFiltre = 2;
                 }
             } else {
@@ -1683,31 +1344,9 @@ class Map {
         })
 
 
-<<<<<<< HEAD
-=======
 
     }
 
-    CreationFiltre() {
-        $('.filtre').remove();
-        $('body').append('<div class="filtre"><div id="0">0</div><div id="1">1</div><div id="2">2</div><div id="3">3</div><div id="4">4</div><div id="5">5</div></div>')
-        map.colorFilter();
-
-
-    }
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
-
-    colorFilter() {
-        $('.filtre div').css('background', '#e6e6e6');
-        $('.filtre div').removeClass('activefiltre');
-        console.log(map.minFiltre)
-        $('#' + map.minFiltre).css('background', '#ffff48');
-        $('#' + map.maxFiltre).css('background', '#ffff48');
-        $('#' + map.minFiltre).addClass("activefiltre");
-        $('#' + map.maxFiltre).addClass("activefiltre");
-    }
-
-<<<<<<< HEAD
     CreationFiltre() {
         $('.filtre').remove();
         $('body').append('<div class="filtre"><div id="0">0</div><div id="1">1</div><div id="2">2</div><div id="3">3</div><div id="4">4</div><div id="5">5</div></div>')
@@ -1741,10 +1380,6 @@ class Map {
     }
 
     gestionFiltre() {
-=======
-    gestionFiltre() {
-        //console.log("ID: "+id)
->>>>>>> a0b584eb177e6c25a3b418b3a79c1d31e11a7fad
         for (var i = 0; i < map.results.length; i++) {
             var marker = map.results[i];
             var rating = parseFloat(marker.rating)
