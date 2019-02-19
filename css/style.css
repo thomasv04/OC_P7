@@ -290,6 +290,7 @@ body {
     display: block;
     padding: 5px 15px;
     margin: 30px auto;
+    margin-bottom: 10px;
     width: 80%;
     height: 4vh;
     font-size: 1vw;
@@ -297,17 +298,39 @@ body {
     box-shadow: 0px 0px 20px #ebebeb;
     border: none;
     background: #e6e6e6; }
-  .nameMarker h3 {
-    margin: auto;
-    display: block;
-    width: 30%;
-    background: green;
-    font-size: 1vw;
-    margin: 30px auto;
-    padding: 10px 5px;
-    text-align: center;
-    -webkit-box-shadow: 0px 0px 20px #ebebeb;
-    box-shadow: 0px 0px 20px #ebebeb; }
+  .nameMarker .button {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center; }
+    .nameMarker .button h3 {
+      margin: auto;
+      display: block;
+      width: 30%;
+      background: green;
+      font-size: 1vw;
+      margin: 30px 10px;
+      padding: 10px 5px;
+      text-align: center;
+      -webkit-box-shadow: 0px 0px 20px #ebebeb;
+      box-shadow: 0px 0px 20px #ebebeb; }
+    .nameMarker .button h4 {
+      color: white;
+      display: inline;
+      background: #b2b2b2;
+      margin: 30px 10px;
+      font-size: 1vw;
+      padding: 10px 10px;
+      text-align: center;
+      -webkit-box-shadow: 0px 0px 20px #ebebeb;
+      box-shadow: 0px 0px 20px #ebebeb; }
 
 #map {
   display: block;
@@ -391,14 +414,14 @@ body {
     .contenu_resto .header_presentation .retour {
       width: 70px;
       height: 70px;
-      background: #fafafa;
+      background: red;
       border-radius: 50%;
       position: absolute;
       top: 20px;
       left: -10%;
       cursor: pointer; }
       .contenu_resto .header_presentation .retour img {
-        width: 55%;
+        width: 45%;
         position: absolute;
         top: 50%;
         left: 45%;
@@ -495,7 +518,7 @@ body {
       box-shadow: 5px 5px 100px #1a1a1a;
       max-height: 80%;
       max-width: 80%;
-      border-radius: 50px; }
+      border-radius: 10px; }
     .contenu_resto .image_full .close {
       top: 2%;
       right: 2%;
